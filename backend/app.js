@@ -4,19 +4,25 @@ const mongoose = require("mongoose");
 const UserRoutes = require("./routes/user");
 const saucesRoutes = require("./routes/sauces");
 const path = require("path");
+const helmet = require("helmet");
+const mongoSanitize = require('express-mongo-sanitize');
 
+require('dotenv').config();
 mongoose
-  .connect(
-    "mongodb+srv://gui31:159357@cluster0.p2nfc.mongodb.net/cluster0?retryWrites=true&w=majority",
-    { useNewUrlParser: true, useUnifiedTopology: true }
-  )
+  .connect(process.env.DB_URI,
+    { useNewUrlParser: true,
+      useUnifiedTopology: true 
+    })
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
 const app = express();
 
+app.use(helmet());
+app.use(mongoSanitize());
+
 app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", 'http://localhost:4200');
   res.setHeader(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content, Accept, Content-Type, Authorization"
