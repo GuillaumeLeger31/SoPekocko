@@ -6,5 +6,5 @@ Puis demarrer avec "ng serve".
 (http://localhost:4200).
 
 pour lancer le backend:
-_ Executer npm install -g nodemon
+_ Executer npm install -g nodemon.
 Puis lancer le serveur avec "nodemon server".
